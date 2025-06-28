@@ -18,11 +18,37 @@
             color: #e2e8f0; /* Light grey text for dark background, applied globally */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
 
-            /* Dark Space Black Animated Background */
+            /* Dark Space Black Animated Background with Stars */
             background: linear-gradient(135deg, #000000, #0a0a0a, #1a1a1a); /* Deep black to very dark grey gradient */
             background-size: 400% 400%; /* Larger than viewport for animation */
             animation: gradientAnimation 15s ease infinite; /* Slow, smooth animation */
+            position: relative; /* Needed for pseudo-element positioning */
+        }
+
+        /* Starfield Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind content */
+            /* Creates tiny white dots (stars) with varying sizes */
+            background: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                        radial-gradient(1.5px 1.5px at 60px 70px, #eee, rgba(0,0,0,0)),
+                        radial-gradient(2.5px 2.5px at 100px 50px, #eee, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 150px 20px, #eee, rgba(0,0,0,0)),
+                        radial-gradient(1.8px 1.8px at 180px 90px, #eee, rgba(0,0,0,0));
+            background-size: 200px 200px; /* Size of the star pattern */
+            animation: starfieldAnimation 120s linear infinite; /* Slow, continuous movement */
+        }
+
+        @keyframes starfieldAnimation {
+            from { background-position: 0 0; }
+            to { background-position: 200px 200px; } /* Move stars diagonally */
         }
 
         /* Keyframes for the gradient animation */
@@ -56,6 +82,8 @@
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
             letter-spacing: 0.5px;
+            position: relative; /* For z-index to ensure it's above stars */
+            z-index: 1;
         }
 
         header h1 {
@@ -66,7 +94,7 @@
             line-height: 1.2;
             margin-bottom: 10px; /* Space below title */
             color: #00eaff; /* Neon Blue */
-            text-shadow: 0 0 8px rgba(0, 220, 255, 0.7); /* Neon glow effect */
+            text-shadow: 0 0 12px rgba(0, 220, 255, 0.9), 0 0 20px rgba(0, 220, 255, 0.5); /* Stronger neon glow effect */
         }
 
         header .subtitle { /* New style for subtitles */
@@ -123,13 +151,13 @@
             color: #b0c4de; /* A slightly lighter blue-grey */
         }
 
-        /* Style for the "Take Quiz" button */
-        .take-quiz-button {
+        /* Style for the buttons in header */
+        .header-button {
             display: inline-block; /* Allows padding and margin, and sits nicely with text */
             background-color: #00eaff; /* Neon blue */
             color: #0d1734; /* Dark blue text */
             padding: 12px 30px;
-            margin-top: 25px; /* Space above button */
+            margin: 25px 10px 0 10px; /* Space above and between buttons */
             border-radius: 30px;
             text-decoration: none; /* Remove underline */
             font-weight: 700;
@@ -142,16 +170,18 @@
             border: none; /* Ensure no default button border */
         }
 
-        .take-quiz-button:hover {
+        .header-button:hover {
             background-color: #66ffff; /* Brighter neon blue on hover */
-            transform: translateY(-3px) scale(1.02); /* Pop effect */
-            box-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 8px 20px rgba(0, 0, 0, 0.6); /* More intense glow */
+            transform: translateY(-5px) scale(1.05); /* More pronounced pop effect */
+            box-shadow: 0 0 30px rgba(0, 255, 255, 1), 0 10px 25px rgba(0, 0, 0, 0.7); /* More intense glow */
         }
 
 
         /* Main Content Section Styling */
         main {
             padding-top: 40px;
+            position: relative; /* For z-index to ensure it's above stars */
+            z-index: 1;
         }
 
         /* The .featured-story class has been removed from the HTML for the featured section.
@@ -168,35 +198,15 @@
             color: #e2e8f0; /* Light gray for content within boxes */
         }
 
-        .more-headlines {
-            background: linear-gradient(145deg, #0f4d4a, #007065); /* Dark teal to brighter green-teal */
+        .more-headlines, .previous-week-digest, .exercises-section, .football-news-section {
+            background: linear-gradient(145deg, rgba(15, 77, 74, 0.4), rgba(0, 112, 101, 0.4)); /* Slightly transparent dark teal to brighter green-teal */
             padding: 35px;
             margin-bottom: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid #2a5a57; /* Complementary border */
+            box-shadow: inset 0 0 15px rgba(0, 234, 255, 0.15), 0 8px 20px rgba(0, 0, 0, 0.4); /* Inner neon glow and outer shadow */
+            border: 1px solid rgba(0, 234, 255, 0.3); /* Subtle neon border */
             color: #e2e8f0; /* Light gray for content within boxes */
-        }
-
-        .previous-week-digest {
-            background: linear-gradient(145deg, #2b3a42, #1f2a32); /* Dark charcoal to muted blue-grey */
-            padding: 35px;
-            margin-bottom: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid #3c4a52; /* Complementary border */
-            color: #e2e8f0; /* Light gray for content within boxes */
-        }
-
-        /* New: Exercise Section Styling */
-        .exercises-section {
-            background: linear-gradient(145deg, #301f40, #5c2c6d); /* A purple-ish gradient for exercises */
-            padding: 35px;
-            margin-bottom: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid #7a4a9c; /* Complementary border */
-            color: #e2e8f0;
+            backdrop-filter: blur(3px); /* Subtle blur for modern glass-like effect */
         }
 
         .news-image {
@@ -206,6 +216,7 @@
             border-radius: 10px;
             margin-bottom: 25px;
             border: 1px solid #3d4a6f; /* Kept a general blue-ish border for images */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Stronger shadow for images */
         }
 
         .original-headline {
@@ -218,7 +229,7 @@
         h2 {
             font-family: 'Playfair Display', serif;
             color: #00eaff; /* Neon Blue */
-            text-shadow: 0 0 8px rgba(0, 220, 255, 0.7); /* Neon glow effect */
+            text-shadow: 0 0 10px rgba(0, 220, 255, 0.8), 0 0 15px rgba(0, 220, 255, 0.6); /* Stronger neon glow effect */
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: 700;
@@ -228,7 +239,7 @@
         h4 { /* Styling for new sub-category headings */
             font-family: 'Playfair Display', serif;
             color: #00eaff; /* Neon Blue */
-            text-shadow: 0 0 6px rgba(0, 220, 255, 0.5); /* Slightly less intense neon glow for sub-headings */
+            text-shadow: 0 0 8px rgba(0, 220, 255, 0.7); /* Slightly less intense neon glow for sub-headings */
             font-size: 1.7em;
             margin-top: 35px;
             margin-bottom: 20px;
@@ -244,20 +255,20 @@
             margin: 0;
             font-family: 'Playfair Display', serif;
             color: #00eaff; /* Neon Blue */
-            text-shadow: 0 0 6px rgba(0, 220, 255, 0.5); /* Neon glow for buttons */
+            text-shadow: 0 0 8px rgba(0, 220, 255, 0.7); /* Neon glow for buttons */
             font-size: 1.9em; /* Matches former h3 size */
             font-weight: 700;
             line-height: 1.4; /* Adjusted for better readability as a button */
             text-align: left; /* Align text left */
             cursor: pointer;
             width: 100%; /* Ensure it takes full width */
-            transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease; /* Smooth transition for hover */
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for hover */
         }
 
         .headline-button:hover {
             color: #66ffff; /* Brighter neon blue on hover */
-            transform: translateX(5px); /* Slight movement on hover */
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.9); /* More intense glow on hover */
+            transform: translateX(8px) scale(1.01); /* More pronounced movement on hover */
+            text-shadow: 0 0 15px rgba(0, 255, 255, 1); /* More intense glow on hover */
         }
 
         .news-summary, .news-summary-short {
@@ -271,22 +282,79 @@
             margin-bottom: 15px; /* Added margin for consistency below simplified headlines */
         }
 
+        /* Read Aloud Button Styling */
+        .read-aloud-button {
+            background: none;
+            border: none;
+            color: #00eaff; /* Neon blue */
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            outline: none;
+        }
+
+        .read-aloud-button:hover {
+            color: #66ffff; /* Brighter neon */
+            transform: scale(1.1);
+        }
+        .read-aloud-button:active {
+            transform: scale(0.9);
+        }
+
+        /* Summary expander */
+        .news-summary-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .news-summary-full {
+            display: none; /* Hidden by default */
+        }
+
+        .news-summary-container.expanded .news-summary-short {
+            display: none; /* Hide short when expanded */
+        }
+
+        .news-summary-container.expanded .news-summary-full {
+            display: block; /* Show full when expanded */
+        }
+
+        .read-more-button {
+            background-color: #0a203a; /* Dark blue background */
+            color: #00eaff; /* Neon blue text */
+            border: 1px solid #00eaff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 8px rgba(0, 220, 255, 0.4);
+        }
+
+        .read-more-button:hover {
+            background-color: #00eaff;
+            color: #0d1734;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+        }
 
         /* Learning Box Styling */
         .learning-box {
-            background-color: rgba(42, 61, 96, 0.5); /* Slightly transparent dark blue, blends with gradients */
+            background-color: rgba(42, 61, 96, 0.6); /* Slightly transparent dark blue, blends with gradients */
             border-left: 5px solid #00eaff; /* Neon Blue accent */
             padding: 25px;
             margin: 30px 0;
             border-radius: 10px;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 0 10px rgba(0, 220, 255, 0.2), 0 5px 15px rgba(0,0,0,0.3); /* Inner glow and outer shadow */
             color: #e2e8f0; /* Light text */
+            backdrop-filter: blur(2px); /* Subtle blur */
         }
 
         .learning-box h4 {
             margin-top: 0;
             color: #00eaff; /* Neon Blue for heading */
-            text-shadow: 0 0 5px rgba(0, 220, 255, 0.4);
+            text-shadow: 0 0 8px rgba(0, 220, 255, 0.6);
             font-size: 1.3em;
             margin-bottom: 12px;
             font-family: 'Playfair Display', serif;
@@ -323,11 +391,12 @@
         .vocabulary-dropdown {
             margin-top: 25px;
             margin-bottom: 25px;
-            background-color: rgba(30, 40, 60, 0.6); /* Slightly lighter transparent background */
+            background-color: rgba(30, 40, 60, 0.7); /* Slightly lighter transparent background */
             border-radius: 10px;
             padding: 15px 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 234, 255, 0.2); /* Subtle neon border */
+            box-shadow: inset 0 0 10px rgba(0, 234, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.3); /* Inner glow and outer shadow */
+            border: 1px solid rgba(0, 234, 255, 0.4); /* Subtle neon border */
+            backdrop-filter: blur(2px); /* Subtle blur */
         }
 
         .vocabulary-summary {
@@ -335,16 +404,16 @@
             font-size: 1.2em;
             font-weight: 700;
             color: #00eaff; /* Neon Blue for summary text */
-            text-shadow: 0 0 5px rgba(0, 220, 255, 0.4);
+            text-shadow: 0 0 6px rgba(0, 220, 255, 0.6);
             cursor: pointer;
             padding: 5px 0;
             outline: none;
-            transition: color 0.2s ease, text-shadow 0.2s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .vocabulary-summary:hover {
             color: #66ffff; /* Brighter neon on hover */
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.9);
         }
 
         .vocabulary-summary::-webkit-details-marker {
@@ -356,14 +425,14 @@
 
         .vocabulary-content {
             padding-top: 15px;
-            border-top: 1px dashed rgba(0, 234, 255, 0.15); /* Subtle dashed neon line */
+            border-top: 1px dashed rgba(0, 234, 255, 0.3); /* Stronger dashed neon line */
             margin-top: 10px;
         }
 
         .vocabulary-content h4 {
             font-size: 1.2em;
             color: #00eaff; /* Neon blue for inner headings */
-            text-shadow: 0 0 4px rgba(0, 220, 255, 0.3);
+            text-shadow: 0 0 5px rgba(0, 220, 255, 0.5);
             margin-bottom: 10px;
             border-bottom: none; /* Remove extra border from general h4 style */
             padding-bottom: 0;
@@ -412,7 +481,7 @@
             background: linear-gradient(135deg, #1f2a32, #2b3a42); /* Dark gradient for the box */
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Stronger shadow */
             text-align: center;
             color: #e2e8f0; /* Light gray */
             max-width: 400px;
@@ -428,7 +497,7 @@
         .message-box-content h4 {
             margin-top: 0;
             color: #00eaff; /* Neon Blue */
-            text-shadow: 0 0 5px rgba(0, 220, 255, 0.4);
+            text-shadow: 0 0 8px rgba(0, 220, 255, 0.6);
             font-family: 'Playfair Display', serif;
             font-size: 1.8em;
             margin-bottom: 15px;
@@ -449,13 +518,13 @@
             cursor: pointer;
             font-weight: 700;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 220, 255, 0.6);
+            box-shadow: 0 0 12px rgba(0, 220, 255, 0.8); /* Stronger neon glow for button */
         }
 
         .message-box-content button:hover {
             background-color: #66ffff;
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
         }
 
 
@@ -463,13 +532,14 @@
         hr {
             border: 0;
             height: 2px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)); /* White gradient on dark background */
+            background-image: linear-gradient(to right, rgba(0, 234, 255, 0), rgba(0, 234, 255, 0.5), rgba(0, 234, 255, 0)); /* Neon gradient for separator */
             margin: 50px auto;
             width: 70%;
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.5); /* Subtle glow */
         }
 
         /* More Headlines Section - Individual News Item */
-        .more-headlines h2, .previous-week-digest h2 { /* Apply to both current and previous week headlines */
+        .more-headlines h2, .previous-week-digest h2, .football-news-section h2 { /* Apply to all main section headlines */
             text-align: center;
             margin-bottom: 40px;
         }
@@ -486,7 +556,7 @@
             align-items: flex-start;
             margin-bottom: 35px;
             padding-bottom: 25px;
-            border-bottom: 1px dashed #333333; /* Darker dashed separator */
+            border-bottom: 1px dashed rgba(0, 234, 255, 0.2); /* Neon dashed separator */
         }
 
         .news-item:last-child {
@@ -502,7 +572,7 @@
             border-radius: 8px;
             margin-right: 25px;
             flex-shrink: 0;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.4); /* Stronger shadow */
         }
 
         .news-item-content {
@@ -520,12 +590,14 @@
             padding: 35px 0;
             color: #cbd5e1; /* Light gray for footer text */
             font-size: 0.95em;
-            border-top: 1px solid #333333;
+            border-top: 1px solid rgba(0, 234, 255, 0.3); /* Neon border */
             margin-top: 50px;
             background-color: #0d1734; /* Matches header dark blue */
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 -6px 15px rgba(0,0,0,0.4); /* Stronger shadow */
+            position: relative; /* For z-index to ensure it's above stars */
+            z-index: 1;
         }
 
         footer a {
@@ -540,20 +612,30 @@
 
         /* Exercises specific styling */
         .exercises-section {
-            background: linear-gradient(145deg, #301f40, #5c2c6d); /* A purple-ish gradient for exercises */
+            background: linear-gradient(145deg, rgba(48, 31, 64, 0.4), rgba(92, 44, 109, 0.4)); /* A purple-ish gradient for exercises */
             padding: 35px;
             margin-bottom: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid #7a4a9c; /* Complementary border */
+            box-shadow: inset 0 0 15px rgba(122, 74, 156, 0.2), 0 8px 20px rgba(0, 0, 0, 0.4); /* Inner neon glow and outer shadow */
+            border: 1px solid rgba(122, 74, 156, 0.5); /* Complementary border */
             color: #e2e8f0;
+            backdrop-filter: blur(3px); /* Subtle blur for modern glass-like effect */
+        }
+
+        .exercise-score {
+            text-align: right;
+            font-size: 1.1em;
+            color: #66ffff;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
 
         .exercise-container {
             margin-bottom: 40px;
             padding: 20px;
             border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.05); /* Very subtle background for internal exercise sections */
+            background-color: rgba(255, 255, 255, 0.08); /* Slightly more visible subtle background for internal exercise sections */
+            box-shadow: inset 0 0 8px rgba(0, 234, 255, 0.1); /* Inner glow */
         }
 
         .exercise-question {
@@ -562,7 +644,7 @@
         }
 
         .exercise-input {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.4); /* Slightly darker transparent */
             border: 1px solid #00eaff; /* Neon border */
             border-radius: 5px;
             color: #66ffff; /* Neon text in input */
@@ -577,17 +659,17 @@
 
         .exercise-input:focus {
             border-color: #66ffff;
-            box-shadow: 0 0 10px rgba(102, 255, 255, 0.7);
+            box-shadow: 0 0 12px rgba(102, 255, 255, 0.9); /* Stronger glow on focus */
         }
 
         .input-correct {
             border-color: #33ff66; /* Green for correct */
-            box-shadow: 0 0 8px rgba(51, 255, 102, 0.5);
+            box-shadow: 0 0 10px rgba(51, 255, 102, 0.7);
         }
 
         .input-incorrect {
             border-color: #ff3333; /* Red for incorrect */
-            box-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.7);
         }
 
         .exercise-buttons {
@@ -605,13 +687,13 @@
             font-weight: 700;
             margin: 0 10px;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 220, 255, 0.6);
+            box-shadow: 0 0 12px rgba(0, 220, 255, 0.8);
         }
 
         .exercise-buttons button:hover {
             background-color: #66ffff;
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
         }
 
         /* Drag and Drop Specific Styling */
@@ -622,9 +704,10 @@
             gap: 15px;
             padding: 20px;
             margin-bottom: 30px;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly darker transparent */
             border-radius: 10px;
-            border: 1px dashed rgba(0, 234, 255, 0.2);
+            border: 1px dashed rgba(0, 234, 255, 0.3); /* Stronger neon border */
+            box-shadow: inset 0 0 10px rgba(0, 234, 255, 0.2); /* Inner glow */
         }
 
         .draggable-word {
@@ -633,21 +716,21 @@
             padding: 10px 20px;
             border-radius: 20px;
             cursor: grab;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(0, 234, 255, 0.4);
-            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+            border: 1px solid rgba(0, 234, 255, 0.6); /* Stronger neon border */
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             font-weight: 600;
             flex-shrink: 0; /* Prevent shrinking */
         }
 
         .draggable-word:hover {
             background-color: #1a304a;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.6);
+            transform: translateY(-5px) scale(1.05); /* More pronounced pop */
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 255, 0.9); /* More intense glow */
         }
 
         .draggable-word.dragging {
-            opacity: 0.5;
+            opacity: 0.6; /* More opaque when dragging */
             border-style: solid; /* Make border solid when dragging */
         }
 
@@ -655,32 +738,35 @@
             display: inline-block;
             width: 150px; /* Same width as inputs */
             height: 40px; /* Enough height for a word */
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly more visible background */
             border: 1px dashed #00eaff; /* Neon dashed border */
             border-radius: 5px;
             vertical-align: middle;
             text-align: center;
             line-height: 40px; /* Center text vertically */
             margin: 0 5px;
-            transition: background-color 0.2s, border-color 0.2s;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
             font-weight: 600;
             color: #66ffff; /* Neon text for dropped words */
+            box-shadow: inset 0 0 5px rgba(0, 234, 255, 0.1); /* Subtle inner glow */
         }
 
         .droppable-blank.drag-over {
-            background-color: rgba(0, 234, 255, 0.1); /* Lighter neon background on drag over */
+            background-color: rgba(0, 234, 255, 0.2); /* More intense neon background on drag over */
             border-color: #66ffff;
+            box-shadow: inset 0 0 10px rgba(0, 234, 255, 0.5);
         }
 
         .droppable-blank.correct-drop {
-            background-color: rgba(51, 255, 102, 0.2); /* Green tint */
+            background-color: rgba(51, 255, 102, 0.3); /* Green tint */
             border-color: #33ff66;
-            box-shadow: 0 0 5px rgba(51, 255, 102, 0.5);
+            box-shadow: inset 0 0 8px rgba(51, 255, 102, 0.8);
         }
 
         .droppable-blank.incorrect-drop {
-            background-color: rgba(255, 51, 51, 0.2); /* Red tint */
-            box-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+            background-color: rgba(255, 51, 51, 0.3); /* Red tint */
+            border-color: #ff3333;
+            box-shadow: inset 0 0 8px rgba(255, 51, 51, 0.8);
         }
 
         /* Responsive Adjustments */
@@ -689,7 +775,7 @@
                 font-size: 2.2em;
             }
 
-            .featured-story, .more-headlines, .previous-week-digest, .exercises-section {
+            .featured-story, .more-headlines, .previous-week-digest, .exercises-section, .football-news-section {
                 padding: 25px;
             }
 
@@ -709,7 +795,7 @@
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                border-bottom: 1px dashed #333333;
+                border-bottom: 1px dashed rgba(0, 234, 255, 0.2); /* Neon dashed separator */
                 margin-bottom: 25px;
                 padding-bottom: 20px;
             }
@@ -740,6 +826,102 @@
                 justify-content: space-around; /* Distribute words better */
             }
         }
+
+        /* Styles for the Headlines Modal */
+        #headlinesModalOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Above message box */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #headlinesModalOverlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #headlinesModalContent {
+            background: linear-gradient(135deg, #10182a, #1a233b); /* Dark blue gradient */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8); /* More pronounced shadow */
+            text-align: center;
+            color: #e2e8f0;
+            max-width: 600px;
+            width: 90%;
+            transform: translateY(-30px) scale(0.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border: 1px solid rgba(0, 234, 255, 0.4); /* Neon border */
+            backdrop-filter: blur(5px); /* Stronger blur for the modal itself */
+        }
+
+        #headlinesModalOverlay.show #headlinesModalContent {
+            transform: translateY(0) scale(1);
+        }
+
+        #headlinesModalContent h3 {
+            color: #00eaff; /* Neon Blue */
+            text-shadow: 0 0 10px rgba(0, 220, 255, 0.8);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        #headlinesModalContent ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        #headlinesModalContent li {
+            margin-bottom: 15px;
+        }
+
+        #headlinesModalContent a {
+            color: #66ffff; /* Brighter neon for links */
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 600;
+            display: block; /* Make the whole area clickable */
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        #headlinesModalContent a:hover {
+            background-color: rgba(0, 234, 255, 0.1);
+            color: #00eaff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+
+        #headlinesModalContent .close-button {
+            background-color: #00eaff;
+            color: #0d1734;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 12px rgba(0, 220, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        #headlinesModalContent .close-button:hover {
+            background-color: #66ffff;
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+        }
     </style>
 </head>
 <body>
@@ -758,40 +940,41 @@
             <p class="date" id="current-monday-date">Weekly Digest - Loading Date...</p>
             <p class="purpose-aim">This webpage serves as a dynamic resource for English learners, aiming to enhance vocabulary, comprehension, and critical thinking skills through engaging with current global news.</p>
             <p>
-                <a href="#fill-in-the-blanks-exercise" class="take-quiz-button">Take Quiz!</a>
+                <button class="header-button" onclick="openHeadlinesModal()">View All Headlines</button>
+                <a href="#fill-in-the-blanks-exercise" class="header-button">Take Quiz!</a>
             </p>
         </div>
     </header>
 
     <main class="container">
         <!-- Featured Story Section -->
-        <section> <!-- This section no longer has the .featured-story class applied -->
+        <section id="featured-story-section">
             <h2>Featured Story: Global Developments</h2>
-            <img src="1.jpg" alt="" class="news-image">
+            <img src="1.jpg" alt="Former US President Donald Trump during a speech" class="news-image">
             
-            <!-- The original-headline paragraph has been removed -->
             <button class="headline-button" onclick="showMessageBox('More details about Trump\'s media criticism will be available soon.')">
                 🌍 Former US President Criticizes News About Iran Strikes
             </button>
-            <p class="news-summary">
+            <p class="news-summary" id="featured-news-summary">
                 Former US President Donald Trump has strongly criticized news organizations like CNN and The New York Times. He claims their reports on a recent intelligence assessment about US strikes on Iran are "fake news." The assessment reportedly suggests the strikes only set back Iran's nuclear program by a few months, not "obliterated" it as Trump claimed. This highlights ongoing tension between Trump and certain media outlets.
+                <button class="read-aloud-button" onclick="readAloud('Former US President Donald Trump has strongly criticized news organizations like CNN and The New York Times. He claims their reports on a recent intelligence assessment about US strikes on Iran are fake news. The assessment reportedly suggests the strikes only set back Iran\'s nuclear program by a few months, not obliterated it as Trump claimed. This highlights ongoing tension between Trump and certain media outlets.')"><i class="fas fa-volume-up"></i></button>
             </p>
             <details class="vocabulary-dropdown">
                 <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                 <div class="vocabulary-content">
-                    <h4>Key Vocabulary (English):</h4>
+                    <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                     <ul>
-                        <li><strong>Criticized (verb)</strong>: Expressed disapproval of someone or something.</li>
-                        <li><strong>Intelligence Assessment</strong>: An official evaluation of secret information.</li>
-                        <li><strong>Set back (phrasal verb)</strong>: Delayed the progress of.</li>
-                        <li><strong>Obliterated</strong>: Completely destroyed.</li>
-                        <li><strong>Tension</strong>: A state of mental or emotional strain; strained relations between groups.</li>
+                        <li><strong>Criticized (verb)</strong>: Expressed disapproval of someone or something.<button class="read-aloud-button" onclick="readAloud('Criticized. Expressed disapproval of someone or something.')"><i class="fas fa-volume-up"></i></button></li>
+                        <li><strong>Intelligence Assessment</strong>: An official evaluation of secret information.<button class="read-aloud-button" onclick="readAloud('Intelligence Assessment. An official evaluation of secret information.')"><i class="fas fa-volume-up"></i></button></li>
+                        <li><strong>Set back (phrasal verb)</strong>: Delayed the progress of.<button class="read-aloud-button" onclick="readAloud('Set back. Delayed the progress of.')"><i class="fas fa-volume-up"></i></button></li>
+                        <li><strong>Obliterated</strong>: Completely destroyed.<button class="read-aloud-button" onclick="readAloud('Obliterated. Completely destroyed.')"><i class="fas fa-volume-up"></i></button></li>
+                        <li><strong>Tension</strong>: A state of mental or emotional strain; strained relations between groups.<button class="read-aloud-button" onclick="readAloud('Tension. A state of mental or emotional strain; strained relations between groups.')"><i class="fas fa-volume-up"></i></button></li>
                     </ul>
-                    <h4>Vocabulário Chave (Português):</h4>
+                    <h4>Vocabulário Chave (Português): </h4>
                     <ul>
                         <li><strong>Criticized (verb)</strong>: **Criticou** (Expressou desaprovação de alguém ou algo.)</li>
                         <li><strong>Intelligence Assessment</strong>: **Avaliação de Inteligência** (Uma avaliação oficial de informações secretas.)</li>
-                        <li><strong>Set back (phrasal verb) = Atrasou</strong>: Delayed the progress of.</li>
+                        <li><strong>Set back (phrasal verb) = Atrasou** (Delayed the progress of.)</li>
                         <li><strong>Obliterated</strong>: **Exterminou/Destruiu completamente** (Destruiu completamente.)</li>
                         <li><strong>Tension</strong>: **Tensão** (Um estado de estresse mental ou emocional; relações tensas entre grupos.)</li>
                     </ul>
@@ -809,7 +992,7 @@
         <hr>
 
         <!-- More Headlines Section (Current Week) -->
-        <section class="more-headlines">
+        <section id="more-headlines-section" class="more-headlines">
             <h2>More Headlines This Week</h2>
 
             <h4>🇧🇷 Brazil News</h4>
@@ -820,18 +1003,21 @@
                     <button class="headline-button" onclick="showMessageBox('More details about the Brazil balloon crash will be available soon.')">
                         🎈 Balloon Crash Kills Eight in Brazil
                     </button>
-                    <p class="news-summary-short">An unfortunate hot air balloon accident occurred in Praia Grande, Brazil, resulting in the deaths of eight people. The balloon, carrying 21 passengers, caught fire and crashed. Investigations are underway to determine the cause of the tragic incident.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">An unfortunate hot air balloon accident occurred in Praia Grande, Brazil, resulting in the deaths of eight people. The balloon, carrying 21 passengers, caught fire and crashed...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('An unfortunate hot air balloon accident occurred in Praia Grande, Brazil, resulting in the deaths of eight people. The balloon, carrying 21 passengers, caught fire and crashed. Investigations are underway to determine the cause of the tragic incident.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">An unfortunate hot air balloon accident occurred in Praia Grande, Brazil, resulting in the deaths of eight people. The balloon, carrying 21 passengers, caught fire and crashed. Investigations are underway to determine the cause of the tragic incident.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Accident</strong>: An unfortunate incident that happens unexpectedly and unintentionally.</li>
-                                <li><strong>Resulting in</strong>: Causing something to happen as a consequence.</li>
-                                <li><strong>Underway</strong>: Having started and still in progress.</li>
-                                <li><strong>Tragic</strong>: Causing or characterized by extreme distress or sorrow.</li>
+                                <li><strong>Accident</strong>: An unfortunate incident that happens unexpectedly and unintentionally.<button class="read-aloud-button" onclick="readAloud('Accident. An unfortunate incident that happens unexpectedly and unintentionally.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Resulting in</strong>: Causing something to happen as a consequence.<button class="read-aloud-button" onclick="readAloud('Resulting in. Causing something to happen as a consequence.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Underway</strong>: Having started and still in progress.<button class="read-aloud-button" onclick="readAloud('Underway. Having started and still in progress.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Tragic</strong>: Causing or characterized by extreme distress or sorrow.<button class="read-aloud-button" onclick="readAloud('Tragic. Causing or characterized by extreme distress or sorrow.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Accident</strong>: **Acidente** (Um incidente infeliz que acontece inesperadamente e sem intenção.)</li>
                                 <li><strong>Resulting in</strong>: **Resultando em** (Causando algo a acontecer como consequência.)</li>
@@ -850,19 +1036,22 @@
                     <button class="headline-button" onclick="showMessageBox('More details about Bolsonaro\'s legal challenges will be available soon.')">
                         🏛️ Former Brazilian President Accused in Spy Case Amidst Coup Trial
                     </button>
-                    <p class="news-summary-short">Brazil's former president, Jair Bolsonaro, is facing accusations in a spy agency case. This development comes as his trial for an alleged coup attempt is currently in progress, adding to his legal challenges. The case involves alleged illegal activities by a spy agency.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">Brazil's former president, Jair Bolsonaro, is facing accusations in a spy agency case. This development comes as his trial for an alleged coup attempt is currently in progress...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('Brazil\'s former president, Jair Bolsonaro, is facing accusations in a spy agency case. This development comes as his trial for an alleged coup attempt is currently in progress, adding to his legal challenges. The case involves alleged illegal activities by a spy agency.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">Brazil's former president, Jair Bolsonaro, is facing accusations in a spy agency case. This development comes as his trial for an alleged coup attempt is currently in progress, adding to his legal challenges. The case involves alleged illegal activities by a spy agency.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Accusations</strong>: Claims or allegations that someone has done something wrong.</li>
-                                <li><strong>Amidst</strong>: In the middle of; surrounded by.</li>
-                                <li><strong>Coup attempt</strong>: An attempt by a small group to overthrow the government.</li>
-                                <li><strong>Legal challenges</strong>: Difficulties or problems related to the law.</li>
-                                <li><strong>Alleged</strong>: Stated as a fact but without proof.</li>
+                                <li><strong>Accusations</strong>: Claims or allegations that someone has done something wrong.<button class="read-aloud-button" onclick="readAloud('Accusations. Claims or allegations that someone has done something wrong.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Amidst</strong>: In the middle of; surrounded by.<button class="read-aloud-button" onclick="readAloud('Amidst. In the middle of; surrounded by.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Coup attempt</strong>: An attempt by a small group to overthrow the government.<button class="read-aloud-button" onclick="readAloud('Coup attempt. An attempt by a small group to overthrow the government.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Legal challenges</strong>: Difficulties or problems related to the law.<button class="read-aloud-button" onclick="readAloud('Legal challenges. Difficulties or problems related to the law.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Alleged</strong>: Stated as a fact but without proof.<button class="read-aloud-button" onclick="readAloud('Alleged. Stated as a fact but without proof.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Accusations</strong>: **Acusações** (Alegações ou afirmações de que alguém fez algo errado.)</li>
                                 <li><strong>Amidst</strong>: **Em meio a** (No meio de; cercado por.)</li>
@@ -883,19 +1072,22 @@
                     <button class="headline-button" onclick="showMessageBox('More details about the Congo-Rwanda peace deal will be available soon.')">
                         🕊️ Congo and Rwanda Sign Peace Agreement After Many Years
                     </button>
-                    <p class="news-summary-short">The Democratic Republic of Congo and Rwanda have signed a significant peace deal, aiming to end years of tension and conflict. This agreement is seen as a major "turning point" for stability in the region, bringing hopes for lasting peace and development.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">The Democratic Republic of Congo and Rwanda have signed a significant peace deal, aiming to end years of tension and conflict. This agreement is seen as a major "turning point" for stability...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('The Democratic Republic of Congo and Rwanda have signed a significant peace deal, aiming to end years of tension and conflict. This agreement is seen as a major turning point for stability in the region, bringing hopes for lasting peace and development.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">The Democratic Republic of Congo and Rwanda have signed a significant peace deal, aiming to end years of tension and conflict. This agreement is seen as a major "turning point" for stability in the region, bringing hopes for lasting peace and development.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Significant</strong>: Important and meaningful.</li>
-                                <li><strong>Tension</strong>: A strained relationship between groups.</li>
-                                <li><strong>Turning point</strong>: A time at which a decisive change in a situation occurs.</li>
-                                <li><strong>Stability</strong>: The state of being stable or firm.</li>
-                                <li><strong>Lasting</strong>: Enduring or continuing for a long time.</li>
+                                <li><strong>Significant</strong>: Important and meaningful.<button class="read-aloud-button" onclick="readAloud('Significant. Important and meaningful.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Tension</strong>: A strained relationship between groups.<button class="read-aloud-button" onclick="readAloud('Tension. A strained relationship between groups.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Turning point</strong>: A time at which a decisive change in a situation occurs.<button class="read-aloud-button" onclick="readAloud('Turning point. A time at which a decisive change in a situation occurs.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Stability</strong>: The state of being stable or firm.<button class="read-aloud-button" onclick="readAloud('Stability. The state of being stable or firm.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Lasting</strong>: Enduring or continuing for a long time.<button class="read-aloud-button" onclick="readAloud('Lasting. Enduring or continuing for a long time.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Significant</strong>: **Significativo** (Importante e significativo.)</li>
                                 <li><strong>Tension</strong>: **Tensão** (Uma relação tensa entre grupos.)</li>
@@ -916,22 +1108,25 @@
                     <button class="headline-button" onclick="showMessageBox('More details about BBC\'s AI news tools will be available soon.')">
                         🤖 BBC Starts Testing AI Tools for News Production
                     </button>
-                    <p class="news-summary-short">The BBC has begun public trials of new generative AI tools designed to assist in news production. These tools will help create "at a glance" summaries of articles and format content to BBC house style, aiming to increase efficiency and speed up news delivery.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">The BBC has begun public trials of new generative AI tools designed to assist in news production. These tools will help create "at a glance" summaries of articles and format content...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('The BBC has begun public trials of new generative AI tools designed to assist in news production. These tools will help create at a glance summaries of articles and format content to BBC house style, aiming to increase efficiency and speed up news delivery.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">The BBC has begun public trials of new generative AI tools designed to assist in news production. These tools will help create "at a glance" summaries of articles and format content to BBC house style, aiming to increase efficiency and speed up news delivery.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Generative AI</strong>: Artificial intelligence that can produce new content, such as text or images.</li>
-                                <li><strong>Public trials</strong>: Tests conducted with participation from the general public.</li>
-                                <li><strong>Workflow tools</strong>: Software or systems designed to streamline tasks and processes.</li>
-                                <li><strong>At a glance</strong>: Immediately or with a quick look.</li>
-                                <li><strong>Efficiency</strong>: The state of achieving maximum productivity with minimum wasted effort.</li>
+                                <li><strong>Generative AI</strong>: Artificial intelligence that can produce new content, such as text or images.<button class="read-aloud-button" onclick="readAloud('Generative AI. Artificial intelligence that can produce new content, such as text or images.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Public trials</strong>: Tests conducted with participation from the general public.<button class="read-aloud-button" onclick="readAloud('Public trials. Tests conducted with participation from the general public.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Workflow tools</strong>: Software or systems designed to streamline tasks and processes.<button class="read-aloud-button" onclick="readAloud('Workflow tools. Software or systems designed to streamline tasks and processes.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>At a glance</strong>: Immediately or with a quick look.<button class="read-aloud-button" onclick="readAloud('At a glance. Immediately or with a quick look.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Efficiency</strong>: The state of achieving maximum productivity with minimum wasted effort.<button class="read-aloud-button" onclick="readAloud('Efficiency. The state of achieving maximum productivity with minimum wasted effort.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Generative AI</strong>: **IA Generativa** (Inteligência artificial que pode produzir novo conteúdo, como texto ou imagens.)</li>
-                                <li><strong>Public trials</strong>: **Testes públicos** (Testes conduzidos com a participação do público em geral.)</li>
+                                <li><strong>Public trials</strong>: **Testes públicos** (Testes conduzidos com a participação do público em general.)</li>
                                 <li><strong>Workflow tools</strong>: **Ferramentas de fluxo de trabalho** (Software ou sistemas projetados para otimizar tarefas e processos.)</li>
                                 <li><strong>At a glance</strong>: **Em um relance** (Imediatamente ou com um rápido olhar.)</li>
                                 <li><strong>Efficiency</strong>: **Eficiência** (O estado de alcançar a produtividade máxima com o mínimo de esforço desperdiçado.)</li>
@@ -949,19 +1144,22 @@
                     <button class="headline-button" onclick="showMessageBox('More details about the discovery of oldest rocks will be available soon.')">
                         🔬 Oldest Rocks Found May Reveal Life's Origins
                     </button>
-                    <p class="news-summary-short">Scientists have discovered the world's oldest rocks, potentially dating back over 4 billion years. Studying these ancient formations could provide crucial insights into how life first emerged on Earth and offer clues about the potential for life on other planets, expanding our understanding.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">Scientists have discovered the world's oldest rocks, potentially dating back over 4 billion years. Studying these ancient formations could provide crucial insights into how life first emerged on Earth...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('Scientists have discovered the world\'s oldest rocks, potentially dating back over 4 billion years. Studying these ancient formations could provide crucial insights into how life first emerged on Earth and offer clues about the potential for life on other planets, expanding our understanding.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">Scientists have discovered the world's oldest rocks, potentially dating back over 4 billion years. Studying these ancient formations could provide crucial insights into how life first emerged on Earth and offer clues about the potential for life on other planets, expanding our understanding.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Discovered</strong>: Found something unexpectedly or in the course of a search.</li>
-                                <li><strong>Potentially</strong>: With the possibility of becoming actual.</li>
-                                <li><strong>Crucial insights</strong>: Extremely important understandings.</li>
-                                <li><strong>Emerged</strong>: Came into being or become known.</li>
-                                <li><strong>Expanding</strong>: Increasing in size, number, or importance.</li>
+                                <li><strong>Discovered</strong>: Found something unexpectedly or in the course of a search.<button class="read-aloud-button" onclick="readAloud('Discovered. Found something unexpectedly or in the course of a search.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Potentially</strong>: With the possibility of becoming actual.<button class="read-aloud-button" onclick="readAloud('Potentially. With the possibility of becoming actual.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Crucial insights</strong>: Extremely important understandings.<button class="read-aloud-button" onclick="readAloud('Crucial insights. Extremely important understandings.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Emerged</strong>: Came into being or become known.<button class="read-aloud-button" onclick="readAloud('Emerged. Came into being or become known.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Expanding</strong>: Increasing in size, number, or importance.<button class="read-aloud-button" onclick="readAloud('Expanding. Increasing in size, number, or importance.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Discovered</strong>: **Descoberto** (Encontrou algo inesperadamente ou durante uma busca.)</li>
                                 <li><strong>Potentially</strong>: **Potencialmente** (Com a possibilidade de se tornar real.)</li>
@@ -982,19 +1180,22 @@
                     <button class="headline-button" onclick="showMessageBox('More details about Wall Street\'s performance will be available soon.')">
                         💰 Wall Street Reaches New Highs as Markets Gain
                     </button>
-                    <p class="news-summary-short">Global stock markets, including Wall Street, are experiencing significant gains, pushing to all-time highs. This positive trend is attributed to expectations of progress in trade deals between the US and major partners like China. Investors are showing optimism about the economic outlook.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">Global stock markets, including Wall Street, are experiencing significant gains, pushing to all-time highs. This positive trend is attributed to expectations of progress in trade deals...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('Global stock markets, including Wall Street, are experiencing significant gains, pushing to all-time highs. This positive trend is attributed to expectations of progress in trade deals between the US and major partners like China. Investors are showing optimism about the economic outlook.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">Global stock markets, including Wall Street, are experiencing significant gains, pushing to all-time highs. This positive trend is attributed to expectations of progress in trade deals between the US and major partners like China. Investors are showing optimism about the economic outlook.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Significant gains</strong>: Large increases or improvements.</li>
-                                <li><strong>All-time highs</strong>: The highest point ever reached.</li>
-                                <li><strong>Attributed to</strong>: Regarded as belonging to or caused by.</li>
-                                <li><strong>Progress</strong>: Forward or onward movement toward a destination.</li>
-                                <li><strong>Optimism</strong>: Hopefulness and confidence about the future.</li>
+                                <li><strong>Significant gains</strong>: Large increases or improvements.<button class="read-aloud-button" onclick="readAloud('Significant gains. Large increases or improvements.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>All-time highs</strong>: The highest point ever reached.<button class="read-aloud-button" onclick="readAloud('All-time highs. The highest point ever reached.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Attributed to</strong>: Regarded as belonging to or caused by.<button class="read-aloud-button" onclick="readAloud('Attributed to. Regarded as belonging to or caused by.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Progress</strong>: Forward or onward movement toward a destination.<button class="read-aloud-button" onclick="readAloud('Progress. Forward or onward movement toward a destination.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Optimism</strong>: Hopefulness and confidence about the future.<button class="read-aloud-button" onclick="readAloud('Optimism. Hopefulness and confidence about the future.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Significant gains</strong>: **Ganhos significativos** (Grandes aumentos ou melhorias.)</li>
                                 <li><strong>All-time highs</strong>: **Máximos históricos** (O ponto mais alto já atingido.)</li>
@@ -1015,25 +1216,81 @@
                     <button class="headline-button" onclick="showMessageBox('More details about the Ukraine conflict will be available soon.')">
                         ⚔️ Russian Leader Wants All of Ukraine; Europe Sends More Weapons
                     </button>
-                    <p class="news-summary-short">Russian President Vladimir Putin has stated his intention to take control of all of Ukraine. In response, European nations are increasing their military support and aid to Ukraine, signaling a continued commitment to the conflict despite ongoing diplomatic efforts. The situation remains highly volatile.</p>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">Russian President Vladimir Putin has stated his intention to take control of all of Ukraine. In response, European nations are increasing their military support and aid...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('Russian President Vladimir Putin has stated his intention to take control of all of Ukraine. In response, European nations are increasing their military support and aid to Ukraine, signaling a continued commitment to the conflict despite ongoing diplomatic efforts. The situation remains highly volatile.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">Russian President Vladimir Putin has stated his intention to take control of all of Ukraine. In response, European nations are increasing their military support and aid to Ukraine, signaling a continued commitment to the conflict despite ongoing diplomatic efforts. The situation remains highly volatile.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
                     <details class="vocabulary-dropdown">
                         <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
                         <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
                             <ul>
-                                <li><strong>Stated (verb)</strong>: Expressed clearly and formally.</li>
-                                <li><strong>Intention</strong>: A plan or aim.</li>
-                                <li><strong>In response</strong>: As a reaction to something.</li>
-                                <li><strong>Signaling</strong>: Indicating or conveying (information or an intention).</li>
-                                <li><strong>Volatile</strong>: Liable to change rapidly and unpredictably, especially for the worse.</li>
+                                <li><strong>Stated (verb)</strong>: Expressed clearly and formally.<button class="read-aloud-button" onclick="readAloud('Stated. Expressed clearly and formally.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Intention</strong>: A plan or aim.<button class="read-aloud-button" onclick="readAloud('Intention. A plan or aim.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>In response</strong>: As a reaction to something.<button class="read-aloud-button" onclick="readAloud('In response. As a reaction to something.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Signaling</strong>: Indicating or conveying (information or an intention).<button class="read-aloud-button" onclick="readAloud('Signaling. Indicating or conveying information or an intention.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Volatile</strong>: Liable to change rapidly and unpredictably, especially for the worse.<button class="read-aloud-button" onclick="readAloud('Volatile. Liable to change rapidly and unpredictably, especially for the worse.')"><i class="fas fa-volume-up"></i></button></li>
                             </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
+                            <h4>Vocabulário Chave (Português): </h4>
                             <ul>
                                 <li><strong>Stated (verb)</strong>: **Declarou** (Expressou de forma clara e formal.)</li>
                                 <li><strong>Intention</strong>: **Intenção** (Um plano ou objetivo.)</li>
                                 <li><strong>In response</strong>: **Em resposta** (Como uma reação a algo.)</li>
-                                <li><strong>Signaling</strong>: **Sinalizando** (Indicando ou transmitindo (informações ou uma intenção).)</li>
+                                <li><strong>Signaling</strong>: **Sinalizando** (Indicando ou transmitindo (informações ou uma intenção).) </li>
                                 <li><strong>Volatile</strong>: **Volátil** (Sujeito a mudar rápida e imprevisivelmente, especialmente para pior.)</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- New FIFA Club World Cup Section -->
+        <section id="football-news-section" class="football-news-section">
+            <h2>⚽ Football News: FIFA Club World Cup Drama</h2>
+            <div class="news-item">
+                <img src="https://placehold.co/160x110/007bff/ffffff?text=FIFA%20Cup" alt="FIFA Club World Cup trophy" class="news-item-image">
+                <div class="news-item-content">
+                    <p class="original-headline">Original: FIFA Club World Cup Delivers Unforgettable Moments and Upsets</p>
+                    <button class="headline-button" onclick="showMessageBox('More details about the FIFA Club World Cup will be available soon.')">
+                        🏆 FIFA Club World Cup: Upsets & Thrills
+                    </button>
+                    <div class="news-summary-container">
+                        <p class="news-summary-short">The FIFA Club World Cup has been a rollercoaster of emotions this week and last, featuring unexpected results and standout performances. Teams battled intensely for the coveted title...<button class="read-more-button" onclick="toggleSummary(this)">Read More</button><button class="read-aloud-button" onclick="readAloud('The FIFA Club World Cup has been a rollercoaster of emotions this week and last, featuring unexpected results and standout performances. Teams battled intensely for the coveted title, with dramatic penalty shootouts and last-minute goals adding to the competition\'s unpredictable nature.')"><i class="fas fa-volume-up"></i></button></p>
+                        <p class="news-summary-full">The FIFA Club World Cup, concluding this week, has delivered a mix of exhilarating highs and surprising lows. Key matches saw underdogs challenging established giants, leading to dramatic penalty shootouts and last-minute goals. Controversial referee decisions and brilliant individual plays added to the competition's unpredictable nature, keeping fans on the edge of their seats worldwide. The tournament has once again proved why it's a true test of global club football prowess.<button class="read-more-button" onclick="toggleSummary(this)">Read Less</button></p>
+                    </div>
+                    <details class="vocabulary-dropdown">
+                        <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
+                        <div class="vocabulary-content">
+                            <h4>Key Vocabulary (English): <button class="read-aloud-button" onclick="readAloudVocabulary('english', this.parentNode.parentNode.querySelector('ul'))"><i class="fas fa-volume-up"></i></button></h4>
+                            <ul>
+                                <li><strong>Rollercoaster of emotions</strong>: A situation with many changes in feelings.<button class="read-aloud-button" onclick="readAloud('Rollercoaster of emotions. A situation with many changes in feelings.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Unexpected results</strong>: Outcomes that were not predicted.<button class="read-aloud-button" onclick="readAloud('Unexpected results. Outcomes that were not predicted.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Standout performances</strong>: Exceptionally good displays by players/teams.<button class="read-aloud-button" onclick="readAloud('Standout performances. Exceptionally good displays by players or teams.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Coveted title</strong>: A highly desired championship.<button class="read-aloud-button" onclick="readAloud('Coveted title. A highly desired championship.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Exhilarating highs</strong>: Intensely exciting or thrilling moments.<button class="read-aloud-button" onclick="readAloud('Exhilarating highs. Intensely exciting or thrilling moments.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Surprising lows</strong>: Disappointing or unpredicted bad moments.<button class="read-aloud-button" onclick="readAloud('Surprising lows. Disappointing or unpredicted bad moments.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Underdogs</strong>: Teams or players who are not expected to win.<button class="read-aloud-button" onclick="readAloud('Underdogs. Teams or players who are not expected to win.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Established giants</strong>: Well-known and powerful teams.<button class="read-aloud-button" onclick="readAloud('Established giants. Well-known and powerful teams.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Dramatic penalty shootouts</strong>: Exciting tie-breaking procedures involving penalties.<button class="read-aloud-button" onclick="readAloud('Dramatic penalty shootouts. Exciting tie-breaking procedures involving penalties.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Controversial referee decisions</strong>: Rulings by officials that cause disagreement.<button class="read-aloud-button" onclick="readAloud('Controversial referee decisions. Rulings by officials that cause disagreement.')"><i class="fas fa-volume-up"></i></button></li>
+                                <li><strong>Prowess</strong>: Skill or expertise in a particular activity or field.<button class="read-aloud-button" onclick="readAloud('Prowess. Skill or expertise in a particular activity or field.')"><i class="fas fa-volume-up"></i></button></li>
+                            </ul>
+                            <h4>Vocabulário Chave (Português): </h4>
+                            <ul>
+                                <li><strong>Rollercoaster of emotions</strong>: **Montanha-russa de emoções**</li>
+                                <li><strong>Unexpected results</strong>: **Resultados inesperados**</li>
+                                <li><strong>Standout performances</strong>: **Atuações de destaque**</li>
+                                <li><strong>Coveted title</strong>: **Título cobiçado**</li>
+                                <li><strong>Exhilarating highs</strong>: **Momentos de euforia/muito emocionantes**</li>
+                                <li><strong>Surprising lows</strong>: **Baixas surpreendentes/momentos decepcionantes**</li>
+                                <li><strong>Underdogs</strong>: **Azarões**</li>
+                                <li><strong>Established giants</strong>: **Gigantes estabelecidos**</li>
+                                <li><strong>Dramatic penalty shootouts</strong>: **Dramáticas disputas de pênaltis**</li>
+                                <li><strong>Controversial referee decisions** (Decisões controversas da arbitragem)</strong>: Rulings by officials that cause disagreement.</li>
+                                <li><strong>Prowess</strong>: **Destreza/Habilidade**</li>
                             </ul>
                         </div>
                     </details>
@@ -1046,6 +1303,7 @@
         <!-- Fill in the Blanks Exercise -->
         <section id="fill-in-the-blanks-exercise" class="exercises-section">
             <h2>Fill in the Blanks</h2>
+            <div class="exercise-score">Score: <span id="fill-in-blanks-score">0</span>/10</div>
             <p>Complete the sentences using the most appropriate words based on recent news or general knowledge.</p>
 
             <div class="exercise-container">
@@ -1101,6 +1359,7 @@
         <!-- Drag and Drop Exercise -->
         <section id="drag-and-drop-exercise" class="exercises-section">
             <h2>Drag and Drop</h2>
+            <div class="exercise-score">Score: <span id="drag-and-drop-score">0</span>/10</div>
             <p>Drag the words from the box below to complete the sentences correctly.</p>
 
             <div class="draggable-words" id="drag-words-container">
@@ -1178,7 +1437,28 @@
         </div>
     </div>
 
+    <!-- Headlines Navigation Modal -->
+    <div id="headlinesModalOverlay" class="message-box-overlay">
+        <div id="headlinesModalContent" class="message-box-content">
+            <h3>Jump to Section</h3>
+            <ul>
+                <li><a href="#featured-story-section" onclick="closeHeadlinesModal(); smoothScrollTo('featured-story-section')">Featured Story: Global Developments</a></li>
+                <li><a href="#more-headlines-section" onclick="closeHeadlinesModal(); smoothScrollTo('more-headlines-section')">More Headlines This Week</a></li>
+                <li><a href="#football-news-section" onclick="closeHeadlinesModal(); smoothScrollTo('football-news-section')">Football News: FIFA Club World Cup Drama</a></li>
+                <li><a href="#previous-week-digest-section" onclick="closeHeadlinesModal(); smoothScrollTo('previous-week-digest-section')">Previous Week's Digest</a></li>
+                <li><a href="#fill-in-the-blanks-exercise" onclick="closeHeadlinesModal(); smoothScrollTo('fill-in-the-blanks-exercise')">Fill in the Blanks Exercise</a></li>
+                <li><a href="#drag-and-drop-exercise" onclick="closeHeadlinesModal(); smoothScrollTo('drag-and-drop-exercise')">Drag and Drop Exercise</a></li>
+            </ul>
+            <button class="close-button" onclick="closeHeadlinesModal()">Close</button>
+        </div>
+    </div>
+
+
     <script>
+        // Global speech synthesis object
+        const synth = window.speechSynthesis;
+        let currentUtterance = null; // To keep track of the current speech
+
         // Function to display the custom message box
         function showMessageBox(message) {
             const messageBoxOverlay = document.getElementById('messageBoxOverlay');
@@ -1192,6 +1472,45 @@
             const messageBoxOverlay = document.getElementById('messageBoxOverlay');
             messageBoxOverlay.classList.remove('show');
         }
+
+        // Function to read text aloud
+        function readAloud(text, lang = 'en-US') {
+            if (synth.speaking && currentUtterance) {
+                synth.cancel(); // Stop current speech if any
+            }
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = lang;
+            synth.speak(currentUtterance);
+        }
+
+        // Function to read vocabulary aloud (English only as per request)
+        function readAloudVocabulary(langType, ulElement = null) {
+            if (langType !== 'english') {
+                return; // Only read English vocabulary
+            }
+            let textToSpeak = '';
+            let targetUl;
+            
+            if (ulElement) {
+                targetUl = ulElement; 
+            } else {
+                targetUl = document.querySelector('#featured-news-summary + details .vocabulary-content ul:first-of-type');
+            }
+
+            if (targetUl) {
+                const listItems = targetUl.querySelectorAll('li');
+                listItems.forEach(item => {
+                    let itemText = item.textContent;
+                    const buttonText = item.querySelector('.read-aloud-button');
+                    if (buttonText) {
+                        itemText = itemText.replace(buttonText.textContent, '').trim();
+                    }
+                    textToSpeak += itemText + '. ';
+                });
+            }
+            readAloud(textToSpeak, 'en-US');
+        }
+
 
         // --- Date Update Logic ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -1209,13 +1528,35 @@
             const previousWeek = new Date(today);
             previousWeek.setDate(today.getDate() - 7);
             const formattedPreviousWeek = previousWeek.toLocaleDateString('en-US', options);
-            previousMondayDateElement.textContent = `Week of ${formattedPreviousWeek}`;
+            if (previousMondayDateElement) {
+                previousMondayDateElement.textContent = `Week of ${formattedPreviousWeek}`;
+            }
         });
 
+        // --- Summary Expander Logic ---
+        function toggleSummary(button) {
+            const container = button.closest('.news-summary-container');
+            if (container) {
+                container.classList.toggle('expanded');
+                if (container.classList.contains('expanded')) {
+                    button.textContent = 'Read Less';
+                } else {
+                    button.textContent = 'Read More';
+                }
+            }
+        }
+
         // --- Fill in the Blanks Logic ---
+        let fillInBlanksScore = 0;
+        const fillInBlanksScoreDisplay = document.getElementById('fill-in-blanks-score');
+
+        function updateFillInBlanksScore() {
+            fillInBlanksScoreDisplay.textContent = fillInBlanksScore;
+        }
+
         function checkFillInBlanks() {
             const inputs = document.querySelectorAll('#fill-in-the-blanks-exercise .exercise-input');
-            let allCorrect = true;
+            let correctCount = 0;
             inputs.forEach(input => {
                 const correctAnswer = input.dataset.answer.toLowerCase();
                 const userAnswer = input.value.trim().toLowerCase();
@@ -1223,16 +1564,18 @@
                 input.classList.remove('input-correct', 'input-incorrect');
                 if (userAnswer === correctAnswer) {
                     input.classList.add('input-correct');
+                    correctCount++;
                 } else {
                     input.classList.add('input-incorrect');
-                    allCorrect = false;
                 }
             });
+            fillInBlanksScore = correctCount;
+            updateFillInBlanksScore();
 
-            if (allCorrect) {
+            if (correctCount === inputs.length) {
                 showMessageBox('Great job! All answers are correct for Fill in the Blanks!');
             } else {
-                showMessageBox('Some answers are incorrect. Please review and try again.');
+                showMessageBox(`You got ${correctCount} out of ${inputs.length} correct in Fill in the Blanks. Please review and try again.`);
             }
         }
 
@@ -1242,10 +1585,18 @@
                 input.value = '';
                 input.classList.remove('input-correct', 'input-incorrect');
             });
+            fillInBlanksScore = 0;
+            updateFillInBlanksScore();
         }
 
         // --- Drag and Drop Logic ---
         let draggedItem = null;
+        let dragAndDropScore = 0;
+        const dragAndDropScoreDisplay = document.getElementById('drag-and-drop-score');
+
+        function updateDragAndDropScore() {
+            dragAndDropScoreDisplay.textContent = dragAndDropScore;
+        }
 
         document.querySelectorAll('.draggable-word').forEach(word => {
             word.addEventListener('dragstart', (e) => {
@@ -1285,7 +1636,7 @@
 
         function checkDragAndDrop() {
             const blanks = document.querySelectorAll('.droppable-blank');
-            let allCorrect = true;
+            let correctCount = 0;
             blanks.forEach(blank => {
                 const correctAnswer = blank.dataset.correctAnswer.toLowerCase();
                 const userAnswer = blank.dataset.currentWord ? blank.dataset.currentWord.toLowerCase() : '';
@@ -1293,16 +1644,18 @@
                 blank.classList.remove('correct-drop', 'incorrect-drop');
                 if (userAnswer === correctAnswer) {
                     blank.classList.add('correct-drop');
+                    correctCount++;
                 } else {
-                    blank.classList.add('incorrect-incorrect');
-                    allCorrect = false;
+                    blank.classList.add('incorrect-drop');
                 }
             });
+            dragAndDropScore = correctCount;
+            updateDragAndDropScore();
 
-            if (allCorrect) {
+            if (correctCount === blanks.length) {
                 showMessageBox('Fantastic! All answers are correct for Drag and Drop!');
             } else {
-                showMessageBox('Some answers are incorrect. Please review and try again.');
+                showMessageBox(`You got ${correctCount} out of ${blanks.length} correct in Drag and Drop. Please review and try again.`);
             }
         }
 
@@ -1318,7 +1671,32 @@
             document.querySelectorAll('.draggable-word').forEach(word => {
                 word.style.display = 'block';
             });
+            dragAndDropScore = 0;
+            updateDragAndDropScore();
         }
+
+        // --- Headlines Modal Logic ---
+        function openHeadlinesModal() {
+            document.getElementById('headlinesModalOverlay').classList.add('show');
+        }
+
+        function closeHeadlinesModal() {
+            document.getElementById('headlinesModalOverlay').classList.remove('show');
+        }
+
+        // Smooth scroll function
+        function smoothScrollTo(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Initialize scores on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFillInBlanksScore();
+            updateDragAndDropScore();
+        });
     </script>
 </body>
 </html>
