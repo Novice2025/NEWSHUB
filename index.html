@@ -123,6 +123,32 @@
             color: #b0c4de; /* A slightly lighter blue-grey */
         }
 
+        /* Style for the "Take Quiz" button */
+        .take-quiz-button {
+            display: inline-block; /* Allows padding and margin, and sits nicely with text */
+            background-color: #00eaff; /* Neon blue */
+            color: #0d1734; /* Dark blue text */
+            padding: 12px 30px;
+            margin-top: 25px; /* Space above button */
+            border-radius: 30px;
+            text-decoration: none; /* Remove underline */
+            font-weight: 700;
+            font-size: 1.1em;
+            letter-spacing: 0.8px;
+            box-shadow: 0 0 15px rgba(0, 220, 255, 0.7), 0 5px 15px rgba(0, 0, 0, 0.4); /* Neon glow and shadow */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            outline: none; /* Remove outline on focus */
+            border: none; /* Ensure no default button border */
+        }
+
+        .take-quiz-button:hover {
+            background-color: #66ffff; /* Brighter neon blue on hover */
+            transform: translateY(-3px) scale(1.02); /* Pop effect */
+            box-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 8px 20px rgba(0, 0, 0, 0.6); /* More intense glow */
+        }
+
+
         /* Main Content Section Styling */
         main {
             padding-top: 40px;
@@ -731,6 +757,9 @@
             <!-- The date will now be automatically updated by JavaScript -->
             <p class="date" id="current-monday-date">Weekly Digest - Loading Date...</p>
             <p class="purpose-aim">This webpage serves as a dynamic resource for English learners, aiming to enhance vocabulary, comprehension, and critical thinking skills through engaging with current global news.</p>
+            <p>
+                <a href="#fill-in-the-blanks-exercise" class="take-quiz-button">Take Quiz!</a>
+            </p>
         </div>
     </header>
 
@@ -1005,78 +1034,6 @@
                                 <li><strong>In response</strong>: **Em resposta** (Como uma reação a algo.)</li>
                                 <li><strong>Signaling</strong>: **Sinalizando** (Indicando ou transmitindo (informações ou uma intenção).)</li>
                                 <li><strong>Volatile</strong>: **Volátil** (Sujeito a mudar rápida e imprevisivelmente, especialmente para pior.)</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </div>
-        </section>
-
-        <hr>
-
-        <!-- Previous Week's Digest Section -->
-        <section class="previous-week-digest">
-            <h2>Previous Week's Digest</h2>
-            <p class="date-subheading" id="previous-monday-date">Loading Previous Week's Date...</p>
-
-            <div class="news-item">
-                <img src="https://placehold.co/160x110/6699CC/CCEEFF?text=Film%20Festival" alt="Film reel or cinema screen" class="news-item-image">
-                <div class="news-item-content">
-                    <p class="original-headline">Original: Global Film Festival Celebrates Independent Cinema</p>
-                    <button class="headline-button" onclick="showMessageBox('More details about the Global Film Festival will be available soon.')">
-                        🎬 Big Film Event Shows New Movies
-                    </button>
-                    <p class="news-summary-short">Last week, a famous film festival celebrated movies made by independent filmmakers from around the world. It showed new stories and unique styles, bringing many artists and film fans together. The event highlighted diverse narratives and emerging talent in cinema.</p>
-                    <details class="vocabulary-dropdown">
-                        <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
-                        <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
-                            <ul>
-                                <li><strong>Celebrated</strong>: Honored or commemorated.</li>
-                                <li><strong>Independent cinema</strong>: Films produced outside major film studio systems.</li>
-                                <li><strong>Diverse narratives</strong>: Stories from a wide range of different backgrounds or perspectives.</li>
-                                <li><strong>Emerging talent</strong>: New or developing skilled individuals.</li>
-                                <li><strong>Highlighted</strong>: Drew special attention to.</li>
-                            </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
-                            <ul>
-                                <li><strong>Celebrated</strong>: **Celebrou** (Honrou ou comemorou.)</li>
-                                <li><strong>Independent cinema</strong>: **Cinema independente** (Filmes produzidos fora dos grandes sistemas de estúdios de cinema.)</li>
-                                <li><strong>Diverse narratives</strong>: **Narrativas diversas** (Histórias de uma ampla gama de diferentes origens ou perspectivas.)</li>
-                                <li><strong>Emerging talent</strong>: **Talentos emergentes** (Indivíduos novos ou em desenvolvimento e habilidosos.)</li>
-                                <li><strong>Highlighted</strong>: **Destacou** (Chamou atenção especial para.)</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <div class="news-item">
-                <img src="https://placehold.co/160x110/99CCFF/003366?text=Amazon%20Forest" alt="Lush green rainforest canopy" class="news-item-image">
-                <div class="news-item-content">
-                    <p class="original-headline">Original: New Conservation Efforts Launched in Amazon Rainforest</p>
-                    <button class="headline-button" onclick="showMessageBox('More details about Amazon conservation efforts will be available soon.')">
-                        🌳 New Plans to Protect Amazon Forest Begin
-                    </button>
-                    <p class="news-summary-short">Last week, several organizations started new projects to save the Amazon rainforest. These efforts include planting trees and working with local communities to stop deforestation and protect wildlife. The initiative aims to combat climate change and preserve biodiversity in the vital ecosystem.</p>
-                    <details class="vocabulary-dropdown">
-                        <summary class="vocabulary-summary">Click for Vocabulary & Translation</summary>
-                        <div class="vocabulary-content">
-                            <h4>Key Vocabulary (English):</h4>
-                            <ul>
-                                <li><strong>Conservation efforts</strong>: Organized actions to protect something, especially the environment.</li>
-                                <li><strong>Launched</strong>: Started or introduced.</li>
-                                <li><strong>Deforestation</strong>: The clearing of forests by cutting down or burning trees.</li>
-                                <li><strong>Biodiversity</strong>: The variety of life in the world or in a particular habitat.</li>
-                                <li><strong>Vital ecosystem</strong>: A crucial or essential ecological community.</li>
-                            </ul>
-                            <h4>Vocabulário Chave (Português):</h4>
-                            <ul>
-                                <li><strong>Conservation efforts</strong>: **Esforços de conservação** (Ações organizadas para proteger algo, especialmente o meio ambiente.)</li>
-                                <li><strong>Launched</strong>: **Lançados** (Iniciados ou introduzidos.)</li>
-                                <li><strong>Deforestation</strong>: **Desmatamento** (A remoção de florestas cortando ou queimando árvores.)</li>
-                                <li><strong>Biodiversity</strong>: **Biodiversidade** (A variedade de vida no mundo ou em um habitat específico.)</li>
-                                <li><strong>Vital ecosystem</strong>: **Ecossistema vital** (Uma comunidade ecológica crucial ou essencial.)</li>
                             </ul>
                         </div>
                     </details>
